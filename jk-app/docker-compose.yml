@@ -1,36 +1,13 @@
 version: '3.7'
 services:
-  dind:
-    image: docker:dind
-    user: root
-    privileged: true
-    container_name: dind
-    expose:
-      - 2375
-    networks:
-      - jenkins_dind
-    environment:
-      DOCKER_TLS_CERTDIR: ""
-
   jenkins:
     image: jenkins/jenkins:alpine3.18-jdk21-preview
     user: root
     container_name: jenkins
-    depends_on:
-      - dind
     ports:
       - 8080:8080
       - 50000:50000
     volumes:
       - ./jenkins:/var/jenkins_home
-        #- /usr/local/bin/docker:/usr/local/bin/docker
-        #- /var/run/docker.sock:/var/run/docker.sock
-
-    environment:
-      DOCKER_HOST: "tcp://172.19.0.2:2375"
-    networks:
-      - jenkins_dind
-
-networks:
-  jenkins_dind:
-    driver: bridge
+      - /usr/local/bin/docker:/usr/local/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock

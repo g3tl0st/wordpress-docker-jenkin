@@ -23,9 +23,17 @@ services:
       MYSQL_USER: g3tl0st 
       MYSQL_PASSWORD: newPass 
       MYSQL_RANDOM_ROOT_PASSWORD: 'root'
+
     volumes:
       - db:/var/lib/mysql
 
 volumes:
   wordpress:
   db:
+
+
+networks:
+   public:
+    driver: bridge
+    external: true
+
