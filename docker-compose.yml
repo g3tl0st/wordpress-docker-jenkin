@@ -1,7 +1,6 @@
 version: '3.1'
 
 services:
-
   wordpress:
     image: wordpress
     restart: always
@@ -16,6 +15,7 @@ services:
       - wordpress:/var/www/html
 
   db:
+    platform: linux/amd64
     image: mysql:5.7
     restart: always
     environment:
